@@ -120,7 +120,7 @@ public class reproduccionRepository {
             pstmt.setInt(1, id);
             pstmt.setInt(2, idcancion);
             pstmt.setString(3, nombre);
-            pstmt.setString(3, usuario);
+            pstmt.setString(4, usuario);
             ResultSet rs = pstmt.executeQuery();
             c.close();
             pstmt.close();
