@@ -8,9 +8,8 @@ import edu.escuelaing.arep.reproduccion.model.reproduccion;
 public interface reproduccionService {
 	
 
-void saveListaCancion(reproduccion listareproduccion);
-	
-	
+	void saveListaCancion(int id,String nombre,int idcancion,String usuario);
+		
 	reproduccion getListaReproduccion(int id); 	
 	
 	List<reproduccion> getListasReproduccionesUser(String usuario);

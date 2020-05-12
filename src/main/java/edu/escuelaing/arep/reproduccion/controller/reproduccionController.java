@@ -14,7 +14,7 @@ import edu.escuelaing.arep.reproduccion.model.reproduccion;
 import edu.escuelaing.arep.reproduccion.services.reproduccionService;
 
 @RestController
-@RequestMapping(value="reproduccion")
+@RequestMapping(value="/reproduccion")
 public class reproduccionController {
 
 	@Autowired
@@ -22,27 +22,29 @@ public class reproduccionController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<reproduccion> saveLista(reproduccion lista){
-		listServ.saveListaCancion(lista);
+	public ResponseEntity<?> saveLista(int id,String nombre,int idcancion,String usuario){
+		listServ.saveListaCancion(id, nombre, idcancion, usuario);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,path="/{id}")
-	public ResponseEntity<reproduccion> getListaReproduccion(@PathVariable("id") int id){
+	public ResponseEntity<?> getListaReproduccion(@PathVariable("id") int id){
+		System.out.println("entro a Lista por id");
 		reproduccion list = listServ.getListaReproduccion(id);
-		return ResponseEntity.ok(list);
+		return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
 	} 
 	
 	@RequestMapping(method = RequestMethod.GET,path="/user/{usuario}")
-	public ResponseEntity<List<reproduccion>> getListaUser(@PathVariable("usuario") String usuario){
+	public ResponseEntity<?> getListaUser(@PathVariable("usuario") String usuario){
 		List<reproduccion> list = listServ.getListasReproduccionesUser(usuario);
-		return ResponseEntity.ok(list);
+		return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET,path="/canciones/{usuario}/{nombre}")
-	public List<reproduccion> getListaCanciones(@PathVariable("usuario") String usuario,@PathVariable("nombre") String nombre){
+	@RequestMapping(method = RequestMethod.GET,path="/{usuario}/{nombre}")
+	public ResponseEntity<?> getListaCanciones(@PathVariable("usuario") String usuario,@PathVariable("nombre") String nombre){
+		System.out.println("entro a Lista por usuario y nombre");
 		List<reproduccion> list = listServ.getListaCanciones(usuario,nombre);
-		return list;
+		return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
 	}
 	
 	
